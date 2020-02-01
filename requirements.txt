@@ -1,0 +1,8 @@
+decorator==4.4.1
+EasyProcess==0.2.10
+entrypoint2==0.2
+Pillow==7.0.0
+PyQt5==5.14.1
+PyQt5-sip==12.7.1
+pyscreenshot==1.0
+python-chess==0.30.1
