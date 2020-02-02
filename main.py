@@ -53,15 +53,15 @@ class MainWindow(QMainWindow):
         self.show()
 
     def shot(self):
-        grab_pieces.main()
+        grab_pieces.screenshot(QtWidgets.qApp)
 
 
-if __name__ == '__main__':
+def init_application():
     app = QApplication(sys.argv)
     app.setQuitOnLastWindowClosed(False)
     mywindow = MainWindow()
 
-    icon = QIcon("icon.png")
+    icon = QIcon('icon.png')
     # Create the tray
     tray = QSystemTrayIcon()
     tray.setIcon(icon)
@@ -83,3 +83,7 @@ if __name__ == '__main__':
     tray.setContextMenu(menu)
     mywindow.show()
     app.exec_()
+
+
+if __name__ == '__main__':
+    init_application()
