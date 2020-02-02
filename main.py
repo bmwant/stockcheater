@@ -12,6 +12,8 @@ from PyQt5.QtWidgets import (
 from PyQt5.QtCore import Qt, QPoint, QRect
 from PyQt5.QtGui import QScreen, QPainter, QPen, QIcon
 
+import grab_pieces
+
 
 SIZE = 73
 BOARD_SIZE = 584
@@ -51,14 +53,7 @@ class MainWindow(QMainWindow):
         self.show()
 
     def shot(self):
-        board_rect = QRect(654, 200, BOARD_SIZE, BOARD_SIZE)
-        screen = QScreen.grabWindow(app.primaryScreen(), QApplication.desktop().winId())
-        board = screen.copy(board_rect)  # int x, int y, int width, int height
-        for i in range(8):
-            for j in range(8):
-                r = QRect(j * SIZE, i * SIZE, SIZE, SIZE)
-                c = board.copy(r)
-                c.save(f'cells/c{i}{j}.png')
+        grab_pieces.main()
 
 
 if __name__ == '__main__':

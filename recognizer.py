@@ -3,23 +3,7 @@ import tensorflow as tf
 from tensorflow import keras
 from sklearn.model_selection import train_test_split
 
-
-CLASS_NAMES = (
-    'r',  # black rook
-    'n',  # black night
-    'b',  # black bishop
-    'q',  # black queen
-    'k',  # black king
-    'p',  # black pawn
-    'R',  # white rook
-    'N',  # white night
-    'B',  # white bishop
-    'Q',  # white queen
-    'K',  # white king
-    'P',  # white pawn
-    '-',  # empty cell
-)
-MODEL_CHECKPOINT = './checkpoints/model_weights.ckpt'
+import config
 
 
 class PiecesClassifier(object):
@@ -28,7 +12,7 @@ class PiecesClassifier(object):
 
     def load_model(self):
         model = create_model()
-        model.load_weights(MODEL_CHECKPOINT)
+        model.load_weights(config.MODEL_CHECKPOINT)
         return model
 
     def predict(self, image) -> int:
@@ -39,9 +23,9 @@ class PiecesClassifier(object):
 
 def create_model():
     model = keras.Sequential([
-        keras.layers.Flatten(input_shape=(26, 26)),
+        keras.layers.Flatten(input_shape=config.INPUT_SHAPE),
         keras.layers.Dense(128, activation='relu'),
-        keras.layers.Dense(len(CLASS_NAMES), activation='softmax')
+        keras.layers.Dense(len(config.CLASS_NAMES), activation='softmax')
     ])
 
     model.compile(
@@ -50,6 +34,23 @@ def create_model():
         metrics=['accuracy'],
     )
     return model
+
+
+def load_data():
+    with open('dataset.np', 'rb') as f:
+        dataset = np.load(f)
+    X = []
+    y = []
+    for data, label in dataset:
+        X.append(data)
+        y.append(label)
+    X = np.array(X)
+    X = X / 255.0  # normalize data
+    y = np.array(y)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.2, shuffle=True)
+
+    return X_train, y_train, X_test, y_test
 
 
 def train_model():
@@ -67,18 +68,18 @@ def train_model():
     print('Test accuracy:', test_acc)
 
     print('\nSaving model weights')
-    model.save_weights(MODEL_CHECKPOINT)
+    model.save_weights(config.MODEL_CHECKPOINT)
     return model
 
 
 def test_predict():
     import cv2
-    dc = DigitsClassifier()
-    image = cv2.imread('train_images/0/058.jpg', cv2.IMREAD_GRAYSCALE)
-    image = cv2.resize(image, (26, 26), interpolation=cv2.INTER_LINEAR)
+    classifier = PiecesClassifier()
+    image = cv2.imread('train_images/b/001.png', cv2.IMREAD_GRAYSCALE)
+    image = cv2.resize(image, config.INPUT_SHAPE, interpolation=cv2.INTER_LINEAR)
     image = image / 255.0
     image = np.expand_dims(image, 0)
-    print(dc.predict(image))
+    print(classifier.predict(image))
 
 
 if __name__ == '__main__':
