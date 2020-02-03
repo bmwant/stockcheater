@@ -19,10 +19,12 @@ def get_files(directory, ext=''):
             yield os.path.join(directory, file_name)
 
 
-def get_class(class_name) -> int:
-    if class_name == 'dot':
-        class_name = '.'
-    return make_model.class_names.index(class_name)
+def get_class(class_name: str) -> int:
+    if class_name == 'empty':
+        class_name = '-'
+    if class_name.endswith('_'):
+        class_name = class_name.upper()[:1]
+    return config.CLASS_NAMES.index(class_name)
 
 
 def normalize_names():

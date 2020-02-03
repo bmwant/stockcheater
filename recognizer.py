@@ -37,8 +37,9 @@ def create_model():
 
 
 def load_data():
-    with open('dataset.np', 'rb') as f:
-        dataset = np.load(f)
+    print('Loading dataset...')
+    with open(config.DATASET_PATH, 'rb') as f:
+        dataset = np.load(f, allow_pickle=True)
     X = []
     y = []
     for data, label in dataset:
@@ -67,7 +68,7 @@ def train_model():
     print('\nTest loss:', test_loss)
     print('Test accuracy:', test_acc)
 
-    print('\nSaving model weights')
+    print('\nSaving model weights...')
     model.save_weights(config.MODEL_CHECKPOINT)
     return model
 
@@ -75,7 +76,7 @@ def train_model():
 def test_predict():
     import cv2
     classifier = PiecesClassifier()
-    image = cv2.imread('train_images/b/001.png', cv2.IMREAD_GRAYSCALE)
+    image = cv2.imread('./pieces/b_/00.png', cv2.IMREAD_GRAYSCALE)
     image = cv2.resize(image, config.INPUT_SHAPE, interpolation=cv2.INTER_LINEAR)
     image = image / 255.0
     image = np.expand_dims(image, 0)
@@ -83,4 +84,4 @@ def test_predict():
 
 
 if __name__ == '__main__':
-    train_model()
+    test_predict()

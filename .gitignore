@@ -105,3 +105,6 @@ dmypy.json
 
 .idea/
 .DS_Store
+
+checkpoints/
+dataset.np
