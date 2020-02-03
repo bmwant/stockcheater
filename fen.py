@@ -38,17 +38,24 @@ class Line:
     to_: tuple
 
 
-def uci_move_to_line(move) -> Line:
+def uci_move_to_line(move, white: bool=True) -> Line:
     from_cell = move[:2]
     to_cell = move[-2:]
 
     offset = config.CELL_SIZE / 2
     x1 = (ord(from_cell[0]) - ord('a')) * config.CELL_SIZE + offset
     y1 = config.BOARD_SIZE - (int(from_cell[1]) - 1) * config.CELL_SIZE - offset
-    # print('x1, y1', x1, y1)
 
     x2 = (ord(to_cell[0]) - ord('a')) * config.CELL_SIZE + offset
     y2 = config.BOARD_SIZE - (int(to_cell[1]) - 1) * config.CELL_SIZE - offset
+
+    if white:
+        x1 = config.BOARD_SIZE - x1
+        y1 = config.BOARD_SIZE - y1
+        x2 = config.BOARD_SIZE - x2
+        y2 = config.BOARD_SIZE - y2
+
+    # print('x1, y1', x1, y1)
     # print('x2, y2', x2, y2)
 
     line = Line(from_=(x1, y1), to_=(x2, y2))

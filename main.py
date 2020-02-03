@@ -36,12 +36,6 @@ class MainWindow(QMainWindow):
         # x, y, width, height
         self.setGeometry(*config.BOARD_POINT,
                          config.BOARD_SIZE, config.BOARD_SIZE)
-        # self.setGeometry(
-        #     QtWidgets.QStyle.alignedRect(
-        #         QtCore.Qt.LeftToRight, QtCore.Qt.AlignCenter,
-        #         QtCore.QSize(600, 600),
-        #         QtWidgets.qApp.desktop().availableGeometry()
-        # ))
         self.setWindowOpacity(0.8)
 
         self.is_white = True
