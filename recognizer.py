@@ -1,3 +1,4 @@
+import cv2
 import numpy as np
 import tensorflow as tf
 from tensorflow import keras
@@ -22,7 +23,26 @@ class PiecesClassifier(object):
 
 
 class Recognizer(object):
-    pass
+    def __init__(self, classifier=None):
+        self.classifier = classifier or PiecesClassifier()
+
+    def recognize_board(self, filepath: str):
+        board = cv2.imread(filepath, cv2.IMREAD_GRAYSCALE)
+        board_arr = []
+        size = int(config.CELL_SIZE)
+        for i in range(8):
+            row = []
+            for j in range(8):
+                cell = board[i*size:(i+1)*size, j*size:(j+1)*size]
+                image = cv2.resize(cell, config.INPUT_SHAPE,
+                                   interpolation=cv2.INTER_LINEAR)
+                image = image / 255.0
+                image = np.expand_dims(image, 0)
+                class_index = self.classifier.predict(image)
+                piece = config.CLASS_NAMES[class_index]
+                row.append(piece)
+            board_arr.append(row)
+        return board_arr
 
 
 def create_model():
@@ -78,10 +98,10 @@ def train_model():
 
 
 def test_predict():
-    import cv2
     classifier = PiecesClassifier()
     image = cv2.imread('./pieces/b_/00.png', cv2.IMREAD_GRAYSCALE)
-    image = cv2.resize(image, config.INPUT_SHAPE, interpolation=cv2.INTER_LINEAR)
+    image = cv2.resize(image, config.INPUT_SHAPE,
+                       interpolation=cv2.INTER_LINEAR)
     image = image / 255.0
     image = np.expand_dims(image, 0)
     print(classifier.predict(image))

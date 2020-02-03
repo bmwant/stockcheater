@@ -4,7 +4,8 @@ from chess import svg
 from chess import engine
 
 
-FEN = 'rnbqkbnr/pppppp1p/6p1/8/3P4/5N2/PPP1PPPP/RNBQKB1R w KQkq - 0 1'
+# FEN = 'rnbqkbnr/pp2pppp/2p5/3P4/8/5N2/PPPP1PPP/RNBQKB1R b KQkq - 0 1'
+FEN = 'r4rk1/1pq1bpp1/2n1pn1p/1NPp4/3P4/P2Q1N2/5PPP/R1B1R1K1 b KQkq - 0 1'
 
 board = chess.Board(fen=FEN)
 
@@ -31,4 +32,5 @@ def make_screenshot():
 
 
 if __name__ == '__main__':
-    make_screenshot()
+    # make_screenshot()
+    save_pic(board)

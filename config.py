@@ -17,6 +17,7 @@ PIECES_DIR = './pieces'
 MODEL_CHECKPOINT = './checkpoints/model_weights.ckpt'
 INPUT_SHAPE = (26, 26)
 DATASET_PATH = 'dataset.np'
+ENGINE_PATH = '/usr/local/bin/stockfish'
 
 # TOP-LEFT corner of the board relative to the screen (x, y) pair
 BOARD_POINT = (634, 194)
