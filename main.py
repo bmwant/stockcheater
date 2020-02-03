@@ -39,6 +39,12 @@ class MainWindow(QMainWindow):
         # ))
         self.setWindowOpacity(0.8)
 
+        self.is_white = True
+        self.white_checkbox = QAction('White', checkable=True, checked=True)
+        self.white_checkbox.triggered.connect(self.set_white)
+        self.black_checkbox = QAction('Black', checkable=True)
+        self.black_checkbox.triggered.connect(self.set_black)
+
     def mousePressEvent(self, event):
         self.hide()
         # QtWidgets.qApp.quit()
@@ -55,6 +61,16 @@ class MainWindow(QMainWindow):
     def shot(self):
         grab_pieces.screenshot(QtWidgets.qApp)
 
+    def set_white(self):
+        self.is_white = True
+        self.white_checkbox.setChecked(True)
+        self.black_checkbox.setChecked(False)
+
+    def set_black(self):
+        self.is_white = False
+        self.white_checkbox.setChecked(False)
+        self.black_checkbox.setChecked(True)
+
 
 def init_application():
     app = QApplication(sys.argv)
@@ -69,10 +85,15 @@ def init_application():
 
     # Create the menu
     menu = QMenu()
+    color_menu = QMenu('Player color')
+    color_menu.addAction(mywindow.white_checkbox)
+    color_menu.addAction(mywindow.black_checkbox)
+
     show_action = QAction('Show move')
     shot_action = QAction('Shot')
     exit_action = QAction('Exit')
     menu.addAction(show_action)
+    menu.addMenu(color_menu)
     menu.addAction(shot_action)
     menu.addAction(exit_action)
     show_action.triggered.connect(mywindow.activate)
