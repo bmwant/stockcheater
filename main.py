@@ -10,12 +10,11 @@ from PyQt5.QtWidgets import (
     QAction,
 )
 from PyQt5.QtCore import Qt, QPoint, QRect
-from PyQt5.QtGui import QScreen, QPainter, QPen, QIcon
+from PyQt5.QtGui import QPainter, QPen, QIcon
 
 import grab_pieces
 
 
-SIZE = 73
 BOARD_SIZE = 584
 
 
@@ -59,7 +58,8 @@ class MainWindow(QMainWindow):
         self.show()
 
     def shot(self):
-        grab_pieces.screenshot(QtWidgets.qApp)
+        filename = grab_pieces.shot_board(QtWidgets.qApp)
+        print(f'Saved to {filename}')
 
     def set_white(self):
         self.is_white = True

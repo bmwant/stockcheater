@@ -21,6 +21,10 @@ class PiecesClassifier(object):
         return class_index
 
 
+class Recognizer(object):
+    pass
+
+
 def create_model():
     model = keras.Sequential([
         keras.layers.Flatten(input_shape=config.INPUT_SHAPE),
@@ -84,4 +88,5 @@ def test_predict():
 
 
 if __name__ == '__main__':
+    # train_model()
     test_predict()

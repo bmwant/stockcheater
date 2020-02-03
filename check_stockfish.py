@@ -11,9 +11,6 @@ board = chess.Board(fen=FEN)
 
 def save_pic(board):
     pic = svg.board(board=board)
-
-    # import pdb; pdb.set_trace()
-
     with open('pic.svg', 'w') as f:
         f.write(pic)
 
@@ -21,7 +18,6 @@ def save_pic(board):
 def check_engine():
     eng = engine.SimpleEngine.popen_uci("./src/stockfish")
     result = eng.play(board, chess.engine.Limit(time=0.1))
-    import pdb; pdb.set_trace()
     board.push(result.move)
     save_pic(board)
     eng.quit()
