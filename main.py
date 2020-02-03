@@ -21,6 +21,9 @@ import grab_pieces
 
 
 class MainWindow(QMainWindow):
+
+    _engine = None
+
     def __init__(self):
         QMainWindow.__init__(self)
         self.setWindowFlags(
@@ -52,7 +55,18 @@ class MainWindow(QMainWindow):
         self.point_from = None
         self.point_to = None
 
-        self.engine = chess_engine.SimpleEngine.popen_uci(config.ENGINE_PATH)
+        # init engine
+        self.engine  # noqa
+
+    def __del__(self):
+        if self._engine is not None:
+            self._engine.quit()
+
+    @property
+    def engine(self):
+        if self._engine is None:
+            self._engine = chess_engine.SimpleEngine.popen_uci(config.ENGINE_PATH)
+        return self._engine
 
     def mousePressEvent(self, event):
         self.hide()
