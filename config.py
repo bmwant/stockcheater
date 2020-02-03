@@ -13,6 +13,7 @@ CLASS_NAMES = (
     'P',  # white pawn
     '-',  # empty cell
 )
+PIECES_DIR = './pieces'
 MODEL_CHECKPOINT = './checkpoints/model_weights.ckpt'
 INPUT_SHAPE = (26, 26)
 DATASET_PATH = 'dataset.np'

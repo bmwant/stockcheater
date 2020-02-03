@@ -25,9 +25,20 @@ def get_class(class_name) -> int:
     return make_model.class_names.index(class_name)
 
 
+def normalize_names():
+    for d in get_dirs(config.PIECES_DIR):
+        # make sure listing will not be mutated during renaming
+        files = list(get_files(d, ext='png'))
+        for i, f in enumerate(files):
+            os.rename(
+                f,
+                os.path.join(os.path.dirname(f), '{:02d}.png'.format(i))
+            )
+
+
 def main():
     data = []
-    for d in get_dirs('pieces'):
+    for d in get_dirs(config.PIECES_DIR):
         class_name = os.path.basename(d)
         class_index = get_class(class_name)
         for f in get_files(d, ext='png'):
