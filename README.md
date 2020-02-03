@@ -1,4 +1,10 @@
-## NOTE
+## Stockcheater
+
+[Keras](https://www.tensorflow.org/guide/keras) + 
+[Stockfish](https://github.com/official-stockfish/Stockfish) based assistant 
+to suggest your better moves when playing chess.
+
+### FAIRPLAY NOTE
 
 **Using of this application when playing real games online is 
 HIGHLY DISCOURAGED.
