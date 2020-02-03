@@ -86,8 +86,10 @@ class MainWindow(QMainWindow):
         board_arr = self.recognizer.recognize_board(filename)
         board_fen = fen.create_fen(board_arr, white=self.is_white)
         board = chess.Board(fen=board_fen)
+        if not board.is_valid():
+            raise RuntimeError('Check captured board at: %s' % filename)
         result = self.engine.play(board, chess_engine.Limit(time=0.1))
-        line = fen.uci_move_to_line(result.move.uci())
+        line = fen.uci_move_to_line(result.move.uci(), white=self.is_white)
         self.point_from = QPoint(*line.from_)
         self.point_to = QPoint(*line.to_)
         self.update()

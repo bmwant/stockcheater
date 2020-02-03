@@ -4,6 +4,8 @@
 [Stockfish](https://github.com/official-stockfish/Stockfish) based assistant 
 to suggest your better moves when playing chess.
 
+![demo](media/screen.gif)
+
 ### FAIRPLAY NOTE
 
 **Using of this application when playing real games online is 
@@ -32,6 +34,14 @@ $ python main.py
 
 3. When you need a hint just click on a tray icon as shown below
 
-![show hint](show_hint.png)
+![show hint](media/show_hint.png)
 
+
+### todo
+
+* Handle `0-0` and `0-0-0` conversion to [FEN](https://en.wikipedia.org/wiki/Forsyth%E2%80%93Edwards_Notation)
+* Add color autodetection
+* Add board position and size autodetection without hardcoding them in config
+* Tune move suggestion to obtain couple of different lines
+* Optimize performance?
 

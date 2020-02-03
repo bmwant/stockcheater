@@ -21,7 +21,6 @@ def screenshot(app):
     )
     size = config.CELL_SIZE
     board = screen.copy(board_rect)  # int x, int y, int width, int height
-    import pdb; pdb.set_trace()
     for i in range(8):
         for j in range(8):
             r = QRect(i * size, j * size, size, size)

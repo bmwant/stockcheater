@@ -28,7 +28,9 @@ def create_fen(board_arr: list, white: bool) -> str:
             line += str(ec)  # end of row might be empty
         board += f'{line}/'
     board = board[:-1]  # remove trailing slash
-    fen = f'{board} {color} KQkq - 0 1'
+    # castling = 'KQkq'
+    castling = '-'
+    fen = f'{board} {color} {castling} - 0 1'
     return fen
 
 
@@ -38,7 +40,7 @@ class Line:
     to_: tuple
 
 
-def uci_move_to_line(move, white: bool=True) -> Line:
+def uci_move_to_line(move, white: bool = True) -> Line:
     from_cell = move[:2]
     to_cell = move[-2:]
 
@@ -49,7 +51,7 @@ def uci_move_to_line(move, white: bool=True) -> Line:
     x2 = (ord(to_cell[0]) - ord('a')) * config.CELL_SIZE + offset
     y2 = config.BOARD_SIZE - (int(to_cell[1]) - 1) * config.CELL_SIZE - offset
 
-    if white:
+    if not white:
         x1 = config.BOARD_SIZE - x1
         y1 = config.BOARD_SIZE - y1
         x2 = config.BOARD_SIZE - x2
